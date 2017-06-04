@@ -1,10 +1,27 @@
 "use strict";
 
 $(document).ready(function () {
+    console.log("ready!");
 
     var animate =0;
 
-    console.log("ready!");
+    var animal_list = ["dog", "cat", "pig", "lion", "tiger", "bear"];
+
+    function renderButton () {
+        $(".animalButton").empty();
+
+        for (var i=0; i< animal_list.length; i++) {
+
+            var a = $("<button>");
+            a.addClass("animal_button");
+            a.attr("data-animal", animal_list[i]);
+            a.text(animal_list[i]);
+            $(".animalButton").append(a);
+
+        }
+    }
+
+    renderButton();
 
     $(document).on("click", "button", function () {
 
@@ -64,9 +81,17 @@ $(document).ready(function () {
                     }
 
                 });
-            });
-    });
-});
+
+                $("#add-animal").on("click", function(event) {
+                    event.preventDefault();
+                    var theAnimalList = $("#animal-input").val().trim();
+                    animal_list.push(theAnimalList);
+                    renderButton();
+                });
+
+            });//done function end
+    });//click on doc button end
+});//document ready end
 
 /*
 buttons
