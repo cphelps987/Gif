@@ -2,6 +2,8 @@
 
 $(document).ready(function () {
 
+    var animate =0;
+
     console.log("ready!");
 
     $(document).on("click", "button", function () {
@@ -30,9 +32,9 @@ $(document).ready(function () {
 
                         var p = $("<p>").text("Rating: " + rating);
 
-                        var animalImage = $("<img>");
+                        var animalImage = $("<img class='animalImg'>");
 
-                        animalImage.attr("src", results[i].images.original_still.url, "still");//makes the image still
+                        animalImage.attr("src", results[i].images.original_still.url).val(i);//makes the image still
                         //animalImage.attr("src", results[i].images.fixed_height);//sets the fixed image height//added more than one attr is over riding the attr before it
                         //animalImage.attr("src", results[i].images.original.url);//makes the image still
 
@@ -41,21 +43,24 @@ $(document).ready(function () {
 
                             $("#gifs-images-here").prepend(gifDiv);
 
-                    }
-                }
+                    }//if statement ends
+                }//for loop ends
 
-                $(".animalDiv").on("click", function() {
+                $(".animalImg").on("click", function() { //make sure you check that it is pulling the img NOT the DIV
                 console.log("click");
 
-                    var state = $(this).attr("still");
-
-                    if (state === "still") {
-                        $(this).attr("src", $(this).removeAttr());
-                        $(this).attr("animate");
+                    if (animate === 0) {
+                        var imageValue = this.value;
+                        console.log(this.value);
+                        $(this).attr("src", results[imageValue].images.original.url);
+                        animate++;
+                        console.log(animate)
                     }
                     else {
-                        $(this).attr("src", $(this).attr("data-still"));
-                        $(this).attr("still");
+                        var imageValue = this.value;
+                        $(this).attr("src", results[imageValue].images.original_still.url);
+                        animate--;
+                        console.log(animate)
                     }
 
                 });
