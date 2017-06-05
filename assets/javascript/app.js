@@ -86,6 +86,7 @@ $(document).ready(function () {
                     event.preventDefault();
                     var theAnimalList = $("#animal-input").val().trim();
                     animal_list.push(theAnimalList);
+                    $(".animalButton").empty();
                     renderButton();
                 });
 
